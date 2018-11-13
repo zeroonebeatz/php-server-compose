@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+    web:
+        image: nginx:1.13.2
+        ports:
+            - "8080:80"
+        links:
+            - php
+        volumes:
+            - ./app:/var/www
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d #TODO use sites-enabled
+        restart: always
+    php:
+        build:
+            context: ./docker/dockerfiles/
+            dockerfile: php.docker
+        links:
+            - mysql
+            - psql
+            - cache
+        volumes:
+            - ./app:/var/www
+        restart: always
+    mysql:
+        image: mysql:5.7
+        ports:
+            - 3306:3306
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        environment:
+            MYSQL_DATABASE: ${DB_NAME}
+            MYSQL_ROOT_USER: ${DB_USER}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - ./docker/storages/mysql/init:/docker-entrypoint-initdb.d
+            - ./docker/storages/mysql/db:/var/lib/mysql
+        restart: always
+    psql:
+        image: postgres:10.1
+        restart: always
+        environment:
+            - POSTGRES_DB=${DB_NAME}
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        ports:
+            - 5432:5432
+        volumes:
+            - ./docker/storages/postgres/:/docker-entrypoint-initdb.d/
+    cache:
+        image: redis:3-alpine
+        ports:
+            - 6379:6379
+        restart: always

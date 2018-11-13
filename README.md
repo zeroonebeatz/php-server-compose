@@ -18,3 +18,9 @@ Add *n*-databases.sql to 'docker/storages/mysql/init/' dir, with:
 
         CREATE DATABASE IF NOT EXISTS `primary`;
         CREATE DATABASE IF NOT EXISTS `secondary`;
+
+## Php
+
+#### Connect to container as current user
+
+        docker exec -it --user $(id -u):$(id -g) <container-id> /bin/bash

@@ -1,4 +1,4 @@
-# PHP SERVER COMPOSE
+# PHP server compose
 
 **app/**- projects parent dir
 
@@ -9,8 +9,6 @@
 #### Create new servier
 Add *.conf file to 'docker/nginx/conf.d/' dir
 
-## DB
-
 ## MySQL
 
 #### Create new database
@@ -19,7 +17,7 @@ Add *n*-databases.sql to 'docker/storages/mysql/init/' dir, with:
         CREATE DATABASE IF NOT EXISTS `primary`;
         CREATE DATABASE IF NOT EXISTS `secondary`;
 
-## Php
+## PHP
 
 #### Connect to container as current user
 

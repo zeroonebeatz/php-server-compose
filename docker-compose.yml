@@ -10,6 +10,7 @@ services:
         volumes:
             - ./app:/var/www
             - ./docker/nginx/conf.d:/etc/nginx/conf.d #TODO use sites-enabled
+        container_name: nginx
         restart: always
     php:
         build:
@@ -21,11 +22,14 @@ services:
             - cache
         volumes:
             - ./app:/var/www
+            - ~/.ssh:/home/$USER/.ssh
+            - /etc/passwd:/etc/passwd:ro
+            - /etc/group:/etc/group:ro
+        container_name: php
         restart: always
+        user: "1000:1000"
     mysql:
         image: mysql:5.7
-        ports:
-            - 3306:3306
         command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
         environment:
             MYSQL_DATABASE: ${DB_NAME}
@@ -42,12 +46,9 @@ services:
             - POSTGRES_DB=${DB_NAME}
             - POSTGRES_USER=${DB_USER}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
-        ports:
-            - 5432:5432
         volumes:
             - ./docker/storages/postgres/:/docker-entrypoint-initdb.d/
     cache:
         image: redis:3-alpine
-        ports:
-            - 6379:6379
+        container_name: redis
         restart: always

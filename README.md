@@ -1,5 +1,9 @@
 # PHP server compose
 
+##TODO
+ - cron
+ - supervisord
+
 **app/**- projects parent dir
 
 **docker/** - services config dir

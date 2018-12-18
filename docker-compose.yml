@@ -11,6 +11,9 @@ services:
             - ./app:/var/www
             - ./docker/nginx/conf.d:/etc/nginx/conf.d #TODO use sites-enabled
         container_name: nginx
+        networks:
+            app_net:
+               ipv4_address: 10.1.0.100 
         restart: always
     php:
         build:
@@ -25,12 +28,17 @@ services:
             - ~/.ssh:/home/$USER/.ssh
             - /etc/passwd:/etc/passwd:ro
             - /etc/group:/etc/group:ro
+            - ./docker/cron/php:/etc/cron.d/php
         container_name: php
-        restart: always
+        networks:
+            - app_net
         user: "1000:1000"
+#entrypoint: crontab /etc/cron.d/php
+        restart: always
     mysql:
         image: mysql:5.7
-        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        container_name: mysql
+        command: --sql_mode="" --character-set-server=utf8 --collation-server=utf8_unicode_ci
         environment:
             MYSQL_DATABASE: ${DB_NAME}
             MYSQL_ROOT_USER: ${DB_USER}
@@ -38,6 +46,10 @@ services:
         volumes:
             - ./docker/storages/mysql/init:/docker-entrypoint-initdb.d
             - ./docker/storages/mysql/db:/var/lib/mysql
+        networks:
+            app_net:
+               ipv4_address: 10.1.0.101 
+#- ./docker/storages/mysql/my.cnf:/etc/mysql/mysql.conf.d/my.cnf
         restart: always
     psql:
         image: postgres:10.1
@@ -48,7 +60,18 @@ services:
             - POSTGRES_PASSWORD=${DB_PASSWORD}
         volumes:
             - ./docker/storages/postgres/:/docker-entrypoint-initdb.d/
+        networks:
+            - app_net
     cache:
         image: redis:3-alpine
         container_name: redis
         restart: always
+        networks:
+            - app_net
+networks:
+    app_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 10.1.0.0/24

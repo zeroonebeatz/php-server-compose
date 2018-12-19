@@ -29,9 +29,11 @@ services:
             - /etc/passwd:/etc/passwd:ro
             - /etc/group:/etc/group:ro
             - ./docker/cron/php:/etc/cron.d/php
+            - ./docker/supervisord:/etc/supervisor
         container_name: php
         networks:
-            - app_net
+            app_net:
+               ipv4_address: 10.1.0.101 
         user: "1000:1000"
 #entrypoint: crontab /etc/cron.d/php
         restart: always
@@ -48,11 +50,12 @@ services:
             - ./docker/storages/mysql/db:/var/lib/mysql
         networks:
             app_net:
-               ipv4_address: 10.1.0.101 
+               ipv4_address: 10.1.0.102 
 #- ./docker/storages/mysql/my.cnf:/etc/mysql/mysql.conf.d/my.cnf
         restart: always
     psql:
         image: postgres:10.1
+        container_name: psql
         restart: always
         environment:
             - POSTGRES_DB=${DB_NAME}

@@ -29,13 +29,11 @@ services:
             - /etc/passwd:/etc/passwd:ro
             - /etc/group:/etc/group:ro
             - ./docker/cron/php:/etc/cron.d/php
-            - ./docker/supervisord:/etc/supervisor
         container_name: php
         networks:
             app_net:
                ipv4_address: 10.1.0.101 
         user: "1000:1000"
-#entrypoint: crontab /etc/cron.d/php
         restart: always
     mysql:
         image: mysql:5.7

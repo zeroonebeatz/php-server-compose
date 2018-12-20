@@ -1,5 +1,8 @@
 FROM php:7.1.17-fpm
 
+#on kernel >= 4.19 needed command
+# echo N | sudo tee /sys/module/overlay/parameters/metacopy
+
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libpng-dev \
@@ -7,7 +10,6 @@ RUN apt-get update && apt-get install -y \
         libxml2-dev \
         apt-utils \
         libcurl4-gnutls-dev \
-        supervisor \
         libmcrypt-dev \
     && docker-php-ext-install -j$(nproc) iconv mysqli xml zip curl \
         pdo pdo_mysql mcrypt json dom opcache \
@@ -16,14 +18,12 @@ RUN apt-get update && apt-get install -y \
 
 RUN apt-get install -y openssl zip unzip git
 
-#on kernel >= 4.19 needed command
-# echo N | sudo tee /sys/module/overlay/parameters/metacopy
-RUN mkdir -p /var/log/supervisor
-RUN chown -R 1000:1000 /var/log/supervisor
-CMD ["/usr/bin/supervisord"]
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN mkdir /home/zer0
 RUN chown -R 1000:1000 /home/zer0
 
+COPY php-entrypoint.sh /usr/local/bin/php-entrypoint.sh
+RUN chmod 0777 /usr/local/bin/php-entrypoint.sh
+RUN chown -R 1000:1000 /usr/local/bin/php-entrypoint.sh
 
+ENTRYPOINT ["/usr/local/bin/php-entrypoint.sh"]

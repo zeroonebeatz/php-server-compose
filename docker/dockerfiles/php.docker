@@ -23,7 +23,7 @@ RUN mkdir /home/zer0
 RUN chown -R 1000:1000 /home/zer0
 
 COPY php-entrypoint.sh /usr/local/bin/php-entrypoint.sh
-RUN chmod 0777 /usr/local/bin/php-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/php-entrypoint.sh
 RUN chown -R 1000:1000 /usr/local/bin/php-entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/php-entrypoint.sh"]
+RUN  bash -c "/usr/local/bin/php-entrypoint.sh &"

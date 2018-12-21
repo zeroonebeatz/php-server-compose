@@ -34,6 +34,7 @@ services:
             app_net:
                ipv4_address: 10.1.0.101 
         user: "1000:1000"
+        tty: true
         restart: always
     mysql:
         image: mysql:5.7

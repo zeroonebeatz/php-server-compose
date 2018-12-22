@@ -4,9 +4,9 @@ NAME=schedule
 DESC="Schedule daemon"
 PIDFILE="/tmp/${NAME}.pid"
 LOGFILE="/tmp/${NAME}.log"
-
+2> /dev/null &
 DAEMON="/bin/bash"
-DAEMON_OPTS="/usr/local/bin/php-entrypoint.sh"
+DAEMON_OPTS="/usr/local/bin/schedule_opts.sh"
 
 START_OPTS="--start --background --make-pidfile --pidfile ${PIDFILE} --exec ${DAEMON} ${DAEMON_OPTS}"
 STOP_OPTS="--stop --pidfile ${PIDFILE}"

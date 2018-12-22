@@ -23,17 +23,3 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN mkdir /home/zer0
 RUN chown -R 1000:1000 /home/zer0
 RUN chown -R 1000:1000 /tmp
-
-COPY php-entrypoint.sh /usr/local/bin/php-entrypoint.sh
-RUN chmod 0777 /usr/local/bin/php-entrypoint.sh
-
-COPY schedule /etc/init.d/schedule
-RUN chmod 0777 /etc/init.d/schedule
-
-RUN service schedule start 2> /dev/null &
-
-#CMD ["/usr/sbin/service", "schedule", "start"]
-
-#RUN chown -R 1000:1000 /usr/local/bin/php-entrypoint.sh
-
-#RUN  bash -c "/usr/local/bin/php-entrypoint.sh" & sleep 4

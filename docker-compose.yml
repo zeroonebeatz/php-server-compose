@@ -28,7 +28,6 @@ services:
             - ~/.ssh:/home/$USER/.ssh
             - /etc/passwd:/etc/passwd:ro
             - /etc/group:/etc/group:ro
-            - ./docker/cron/php:/etc/cron.d/php
             - ./docker/dockerfiles/schedule_opts.sh:/usr/local/bin/schedule_opts.sh
             - ./docker/dockerfiles/schedule:/etc/init.d/schedule
         container_name: php

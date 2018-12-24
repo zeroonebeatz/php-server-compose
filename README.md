@@ -1,9 +1,5 @@
 # PHP server compose
 
-##TODO
- - cron
- - supervisord
-
 **app/**- projects parent dir
 
 **docker/** - services config dir
@@ -16,13 +12,26 @@ Add *.conf file to 'docker/nginx/conf.d/' dir
 ## MySQL
 
 #### Create new database
-Add *n*-databases.sql to 'docker/storages/mysql/init/' dir, with:
+Connect to mysql container by ip and create
 
-        CREATE DATABASE IF NOT EXISTS `primary`;
-        CREATE DATABASE IF NOT EXISTS `secondary`;
+#Usage
 
-## PHP
+##Run
 
-#### Connect to container as current user
+        $ make
 
-        docker exec -it --user $(id -u):$(id -g) <container-id> /bin/bash
+##Down
+
+        $ make down
+
+##Connect to containers
+    
+        $ make ${CONTAINER_NAME}
+
+
+Containers:
+    - php
+    - mysql
+    - psql
+    - redis
+

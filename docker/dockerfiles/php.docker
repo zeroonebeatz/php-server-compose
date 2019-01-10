@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
         libxml2-dev \
         libzip-dev \
+        libpq-dev \
         openssl \
         unzip \
         zip 
@@ -27,17 +28,27 @@ RUN docker-php-ext-install -j$(nproc) \
         opcache \
         pdo \
         pdo_mysql \
+        pgsql \
+        pdo_pgsql \
         xml \
         zip \
         mcrypt 
 
+# Install Postgre PDO
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+
+RUN docker-php-ext-install -j$(nproc) pgsql pdo_pgsql
+
+# Install GD
 RUN docker-php-ext-configure gd \
         --with-freetype-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/ 
 
 RUN docker-php-ext-install -j$(nproc) gd 
 
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Configure user
 RUN mkdir /home/zer0
 RUN chown -R 1000:1000 /home/zer0
 RUN chown -R 1000:1000 /tmp

@@ -63,7 +63,8 @@ services:
         volumes:
             - ./docker/storages/postgres/:/docker-entrypoint-initdb.d/
         networks:
-            - app_net
+            app_net:
+               ipv4_address: 10.1.0.103 
     cache:
         image: redis:3-alpine
         container_name: redis

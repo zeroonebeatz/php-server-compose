@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y \
         unzip \
         zip 
 
+RUN apt-get install -y zlib1g-dev libicu-dev g++
+
 RUN docker-php-ext-install -j$(nproc) \
         curl \
         dom \
@@ -33,6 +35,10 @@ RUN docker-php-ext-install -j$(nproc) \
         xml \
         zip \
         mcrypt 
+
+
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl
 
 # Install Postgre PDO
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql

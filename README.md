@@ -1,4 +1,4 @@
-# Compose PHP server for local develepment
+# Compose PHP server for local development
 
 **app/**- projects parent dir
 

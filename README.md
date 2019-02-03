@@ -12,7 +12,8 @@ Add *.conf file to 'docker/nginx/conf.d/' dir
 ## MySQL
 
 #### Create new database
-Connect to mysql container by ip and create
+    
+    $ make mysql_create
 
 # Usage
 

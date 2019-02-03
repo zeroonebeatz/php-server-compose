@@ -15,6 +15,11 @@ php:
 mysql:
 	docker exec -it mysql bash
 
+mysql_create:
+	@echo "New Database Name: "; \
+	read dbName; \
+	docker exec -it mysql sh -c 'echo "create database \`'$$dbName'\`" | mysql -uroot -plocal';
+
 psql:
 	docker exec -it psql bash
 

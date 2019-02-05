@@ -12,6 +12,9 @@ schedule:
 php:
 	docker exec -it php bash
 
+nodejs:
+	docker exec -it nodejs bash
+
 mysql:
 	docker exec -it mysql bash
 

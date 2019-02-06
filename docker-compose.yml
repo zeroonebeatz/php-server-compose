@@ -29,8 +29,6 @@ services:
         volumes:
             - ./app:/var/www
             - ~/.ssh:/home/$USER/.ssh
-            - /etc/passwd:/etc/passwd:ro
-            - /etc/group:/etc/group:ro
             - ./docker/dockerfiles/php/schedule_opts.sh:/usr/local/bin/schedule_opts.sh
             - ./docker/dockerfiles/php/schedule:/etc/init.d/schedule
         container_name: php

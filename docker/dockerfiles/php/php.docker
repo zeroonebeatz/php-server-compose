@@ -57,6 +57,9 @@ RUN docker-php-ext-install -j$(nproc) gd
 
 COPY ./php.ini "$PHP_INI_DIR/php.ini"
 
+RUN echo "zer0:x:${GID}:" >> /etc/group
+RUN echo "zer0:x:${UID}:${GID}:zer0,,,:/home/zer0:" >> /etc/passwd
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # Configure user

@@ -3,6 +3,9 @@ FROM php:7.1.17-fpm
 #on kernel >= 4.19 needed command
 # echo N | sudo tee /sys/module/overlay/parameters/metacopy
 
+ARG UID
+ARG GID 
+
 RUN apt-get update && apt-get install -y \
         apt-utils \
         git \
@@ -58,5 +61,5 @@ COPY ./php.ini "$PHP_INI_DIR/php.ini"
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # Configure user
 RUN mkdir /home/zer0
-RUN chown -R 1000:1000 /home/zer0
-RUN chown -R 1000:1000 /tmp
+RUN chown -R ${UID}:${GID} /home/zer0
+RUN chown -R ${UID}:${GID} /tmp

@@ -19,6 +19,9 @@ services:
         build:
             context: ./docker/dockerfiles/php/
             dockerfile: php.docker
+            args: 
+                UID: ${PUID}
+                GID: ${PGID}
         links:
             - mysql
             - psql
@@ -34,15 +37,15 @@ services:
         networks:
             app_net:
                 ipv4_address: 10.1.0.101 
-        user: "1000:1000"
+        user: ${PUID}:${PGID}
         restart: always
     nodejs:
         build:
             context: ./docker/dockerfiles/js/
             dockerfile: nodejs.docker
             args: 
-                UID: 1000
-                GID: 1000
+                UID: ${PUID}
+                GID: ${PGID}
         volumes:
             - ./app:/var/www
         working_dir: /var/www
@@ -51,7 +54,7 @@ services:
         networks:
             app_net:
                ipv4_address: 10.1.0.104 
-        user: "1000:1000"
+        user: ${PUID}:${PGID}
     mysql:
         image: mysql:5.7
         container_name: mysql

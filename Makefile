@@ -1,7 +1,7 @@
 all: up schedule
 
 up: 
-	docker-compose up --build -d 
+	PUID=$$(id -u) PGID=$$(id -g) docker-compose up --build -d 
 
 down: 
 	docker-compose down
@@ -28,3 +28,7 @@ psql:
 
 redis:
 	docker exec -it redis /bin/sh
+
+test:
+	@echo $$(id -u); \
+	echo $$(id -g);

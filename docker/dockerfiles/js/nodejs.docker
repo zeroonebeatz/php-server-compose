@@ -3,8 +3,8 @@ FROM alpine:3.7
 ARG UID
 ARG GID 
 
-RUN addgroup -g ${GID} app && \ 
-adduser -D -u ${UID} -G app app
+#RUN addgroup -g ${GID} app && \ 
+RUN adduser -D -u ${UID} -g ${GID} app
 
 RUN apk add --update bash
 RUN apk add --update nodejs nodejs-npm

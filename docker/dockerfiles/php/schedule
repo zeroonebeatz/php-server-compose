@@ -17,12 +17,12 @@ set -e
 
 if [ ! -f $LOGFILE ]; then
     touch $LOGFILE
-    chown 1000:1000 $LOGFILE
+    chown $UID:$GID $LOGFILE
 fi
 
 if [ ! -f $PIDFILE ]; then
     touch $PIDFILE
-    chown 1000:1000 $PIDFILE
+    chown $UID:$GID $PIDFILE
 fi
 
 case "$1" in

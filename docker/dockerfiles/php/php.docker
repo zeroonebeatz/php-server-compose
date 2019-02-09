@@ -6,6 +6,7 @@ FROM php:7.1.17-fpm
 ARG UID
 ARG GID 
 ARG REMOTE_HOST
+ARG USERNAME=app
 ARG XDEBUG_CONF_PATH=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN apt-get update && apt-get install -y \
@@ -70,10 +71,10 @@ RUN docker-php-ext-install -j$(nproc) gd
 COPY ./php.ini "$PHP_INI_DIR/php.ini"
 
 # User - configure
-RUN echo "zer0:x:${GID}:" >> /etc/group
-RUN echo "zer0:x:${UID}:${GID}:zer0,,,:/home/zer0:" >> /etc/passwd
-RUN mkdir /home/zer0
-RUN chown -R ${UID}:${GID} /home/zer0
+RUN echo "${USERNAME}:x:${GID}:" >> /etc/group
+RUN echo "${USERNAME}:x:${UID}:${GID}:${USERNAME},,,:/home/${USERNAME}:" >> /etc/passwd
+RUN mkdir /home/${USERNAME}
+RUN chown -R ${UID}:${GID} /home/${USERNAME}
 RUN chown -R ${UID}:${GID} /tmp
 
 # Composer - install

@@ -1,7 +1,8 @@
-let g:vdebug_options = {
-\  'path_maps': {
+let g:vdebug_options.port = 9001
+let g:vdebug_options.server = 'ttm.doc'
+let g:vdebug_options.ide_key = 'docker'
+let g:vdebug_options.path_maps = {
 \    '/var/www/ttm': '/home/zer0/langs/php/php-server-compose/app/ttm',
-\  }
 \}
 
 let g:vdebug_keymap = {

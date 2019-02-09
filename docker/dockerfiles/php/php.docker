@@ -53,7 +53,7 @@ RUN pecl install xdebug \
     && echo "xdebug.remote_enable=on" >> ${XDEBUG_CONF_PATH} \
     && echo "xdebug.remote_autostart=on" >> ${XDEBUG_CONF_PATH} \
     && echo "xdebug.remote_handler=dbgp" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_port=9001" >> ${XDEBUG_CONF_PATH} \
+    && echo "xdebug.remote_port=9005" >> ${XDEBUG_CONF_PATH} \
     && echo "xdebug.idekey=docker" >> ${XDEBUG_CONF_PATH} \
     && echo "xdebug.remote_host=${REMOTE_HOST}" >> ${XDEBUG_CONF_PATH} 
 

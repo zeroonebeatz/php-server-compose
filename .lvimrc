@@ -1,0 +1,24 @@
+let g:vdebug_options = {
+\  'path_maps': {
+\    '/var/www/ttm': '/home/zer0/langs/php/php-server-compose/app/ttm',
+\  }
+\}
+
+let g:vdebug_keymap = {
+\ 'run' : '5',
+\ 'run_to_cursor' : '9',
+\ 'step_over' : '2',
+\ 'step_into' : '3',
+\ 'step_out' : '4',
+\ 'close' : '6',
+\ 'detach' : '7',
+\ 'set_breakpoint' : 's',
+\ 'get_context' : 'c',
+\ 'eval_under_cursor' : 'u',
+\ 'eval_visual' : 'v',
+\}
+" For debugging connection issues.
+"let g:vdebug_options = {
+"\    "debug_file_level" : 2,
+"\    "debug_file" : '~/vdebug.log',
+"\}

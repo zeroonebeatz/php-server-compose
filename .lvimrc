@@ -1,27 +1,23 @@
-let g:vdebug_options.port = 9005
-let g:vdebug_options.server = '10.1.0.100'
+let g:vdebug_options.port = 9000
 let g:vdebug_options.ide_key = 'docker'
 let g:vdebug_options.break_on_open = 0
-let g:vdebug_options.watch_window_style = 'compact'
+let g:vdebug_options.debug_file = '/tmp/vdebug.log'
+let g:vdebug_options.debug_file_level = 2
+
 let g:vdebug_options.path_maps = {
 \    '/var/www/ttm': '/home/zer0/langs/php/php-server-compose/app/ttm',
 \}
 
 let g:vdebug_keymap = {
-\ 'run' : '5',
-\ 'run_to_cursor' : '9',
-\ 'step_over' : '2',
-\ 'step_into' : '3',
-\ 'step_out' : '4',
-\ 'close' : '6',
-\ 'detach' : '7',
-\ 'set_breakpoint' : 's',
-\ 'get_context' : 'c',
-\ 'eval_under_cursor' : 'u',
-\ 'eval_visual' : 'v',
+\ 'run' : '<Leader>5',
+\ 'run_to_cursor' : '<Leader>9',
+\ 'step_over' : '<Leader>2',
+\ 'step_into' : '<Leader>3',
+\ 'step_out' : '<Leader>4',
+\ 'close' : '<Leader>6',
+\ 'detach' : '<Leader>7',
+\ 'set_breakpoint' : '<Leader>s',
+\ 'get_context' : '<Leader>c',
+\ 'eval_under_cursor' : '<Leader>u',
+\ 'eval_visual' : '<Leader>v',
 \}
-" For debugging connection issues.
-"let g:vdebug_options = {
-"\    "debug_file_level" : 2,
-"\    "debug_file" : '~/vdebug.log',
-"\}

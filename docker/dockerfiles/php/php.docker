@@ -5,7 +5,6 @@ FROM php:7.1.17-fpm
 
 ARG UID
 ARG GID 
-ARG REMOTE_HOST
 ARG USERNAME=app
 ARG XDEBUG_CONF_PATH=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
@@ -50,12 +49,14 @@ RUN docker-php-ext-install intl
 # Xdebug - install and configure 
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug \
-    && echo "xdebug.remote_enable=on" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_autostart=on" >> ${XDEBUG_CONF_PATH} \
+    && echo "xdebug.remote_enable=1" >> ${XDEBUG_CONF_PATH} \
+    && echo "xdebug.remote_autostart=1" >> ${XDEBUG_CONF_PATH} \
+    && echo "xdebug.remote_default=1" >> ${XDEBUG_CONF_PATH} \
     && echo "xdebug.remote_handler=dbgp" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_port=9005" >> ${XDEBUG_CONF_PATH} \
+    && echo "xdebug.remote_port=9000" >> ${XDEBUG_CONF_PATH} \
     && echo "xdebug.idekey=docker" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_host=${REMOTE_HOST}" >> ${XDEBUG_CONF_PATH} 
+    && echo "xdebug.remote_connect_back=1" >> ${XDEBUG_CONF_PATH}
+#    && echo "xdebug.remote_break_on_open=1" >> ${XDEBUG_CONF_PATH}
 
 # Postgre PDO - install 
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql

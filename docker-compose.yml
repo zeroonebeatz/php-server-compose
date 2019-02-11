@@ -22,7 +22,6 @@ services:
             args: 
                 UID: ${PUID}
                 GID: ${PGID}
-                REMOTE_HOST: 192.168.0.2
         links:
             - mysql
             - psql
@@ -33,8 +32,6 @@ services:
             - ./docker/dockerfiles/php/schedule_opts.sh:/usr/local/bin/schedule_opts.sh
             - ./docker/dockerfiles/php/schedule:/etc/init.d/schedule
         container_name: php
-        ports:
-            - 9005:9005
         environment:
             XDEBUG_CONFIG: 'idekey=docker'
         networks:

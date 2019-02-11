@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     zlib1g-dev \
     libicu-dev \
+    libtidy-dev \
     g++
 
 RUN docker-php-ext-install -j$(nproc) \
@@ -40,7 +41,8 @@ RUN docker-php-ext-install -j$(nproc) \
     pdo_pgsql \
     xml \
     zip \
-    mcrypt 
+    mcrypt \
+    tidy
 
 # Intl - install
 RUN docker-php-ext-configure intl

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    php:
+        links:
+            - mysql
+            - psql
+            - elasticsearch
+            - cache
+    elasticsearch:
+        image: elasticsearch:6.6.0
+        container_name: elasticsearch
+        volumes:
+            - ./docker/elasticsearch:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        networks: 
+            - app_net

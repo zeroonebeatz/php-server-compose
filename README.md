@@ -61,4 +61,5 @@ Containers:
 - mysql
 - psql
 - redis
+- elasticsearch
 

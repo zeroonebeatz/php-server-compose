@@ -1,5 +1,7 @@
 all: up schedule
 
+search: up-search schedule 
+
 up: 
 	PUID=$$(id -u) PGID=$$(id -g) docker-compose up --build -d 
 

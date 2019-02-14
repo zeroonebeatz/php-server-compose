@@ -20,10 +20,10 @@ Add *.conf file to 'docker/nginx/conf.d/' dir
 
 Connect to container, cd to project folder and use npm commands
 
-##ElasticSearch
+## ElasticSearch
 
-###Host machine configuration
-For Linux set (less on reboot):
+### Host machine configuration
+For Linux set (lost on reboot):
     
     # sysctl -w vm.max_map_count=262144
 

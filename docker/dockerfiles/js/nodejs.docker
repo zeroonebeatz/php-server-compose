@@ -7,7 +7,7 @@ ARG GID
 RUN adduser -D -u ${UID} -g ${GID} app
 
 RUN apk add --update bash
-RUN apk add --update nodejs nodejs-npm
+RUN apk add --update nodejs nodejs-npm git
 
 EXPOSE 3000
 ENTRYPOINT ["bash"]

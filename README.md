@@ -67,4 +67,4 @@ Containers:
 
 - [ ] Cron
 - [ ] Supervisord
-
+- [ ] RabbitMQ

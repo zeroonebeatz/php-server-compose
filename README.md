@@ -23,7 +23,7 @@ Connect to container, cd to project folder and use npm commands
 ## ElasticSearch
 
 ### Host machine configuration
-For Linux set (lost on reboot):
+For Linux set (lost after reboot):
     
     # sysctl -w vm.max_map_count=262144
 

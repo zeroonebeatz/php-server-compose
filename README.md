@@ -5,6 +5,14 @@
 
 **docker/** - services config dir
 
+## PHP
+
+In docker/dockerfiles/php directory
+
+    $ cp example.schedule_opts.sh schedule_opts.sh
+
+And set your schedule services
+
 ## Nginx
 
 #### Create new servier

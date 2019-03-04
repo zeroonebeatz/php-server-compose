@@ -57,7 +57,11 @@ RUN pecl install xdebug \
     && echo "xdebug.remote_handler=dbgp" >> ${XDEBUG_CONF_PATH} \
     && echo "xdebug.remote_port=9000" >> ${XDEBUG_CONF_PATH} \
     && echo "xdebug.idekey=docker" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_connect_back=1" >> ${XDEBUG_CONF_PATH}
+    && echo "xdebug.remote_connect_back=1" >> ${XDEBUG_CONF_PATH} \
+    && echo "xdebug.profiler_enable=1" >> ${XDEBUG_CONF_PATH} \
+    && echo "xdebug.profiler_output_dir=/var/www/xdebug" >> ${XDEBUG_CONF_PATH} \
+    && echo "xdebug.profiler_enable_trigger=1" >> ${XDEBUG_CONF_PATH}
+
 #    && echo "xdebug.remote_break_on_open=1" >> ${XDEBUG_CONF_PATH}
 
 # Postgre PDO - install 

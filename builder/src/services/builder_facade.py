@@ -16,11 +16,15 @@ class BuilderFacade:
         compose = Builder.read_yaml(self.conf)
         self.builder = Builder(compose, self.confd, out)
 
+    def push(self):
+        for service in self.services:
+            facade.builder.push(service)
+
+    def make(self):
+        self.builder.make()
+
     @staticmethod
     def make(services: List, out: str = 'builder/tmp/docker-compose.yml'):
         facade = BuilderFacade(services, out)
-
-        for service in services:
-            facade.builder.push(service)
-
-        facade.builder.make()
+        facade.push()
+        facade.make()

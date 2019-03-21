@@ -2,18 +2,18 @@ version: '3'
 
 services:
     web:
-        image: nginx:1.13.2
+        image: nginx:${NGINX_VERSION}
         ports:
             - "8080:80"
         links:
             - php
         volumes:
             - ./app:/var/www
-            - ./docker/nginx/conf.d:/etc/nginx/conf.d #TODO use sites-enabled
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
         container_name: nginx
         networks:
             app_net:
-               ipv4_address: 10.1.0.100 
+               ipv4_address: ${IPV4_MASK}.100 
         restart: always
     php:
         build:
@@ -37,7 +37,7 @@ services:
             XDEBUG_CONFIG: 'idekey=docker'
         networks:
             app_net:
-                ipv4_address: 10.1.0.101 
+                ipv4_address: ${IPV4_MASK}.101 
         user: ${PUID}:${PGID}
         restart: always
     nodejs:
@@ -54,10 +54,10 @@ services:
         tty: true
         networks:
             app_net:
-               ipv4_address: 10.1.0.104 
+               ipv4_address: ${IPV4_MASK}.104 
         user: ${PUID}:${PGID}
     mysql:
-        image: mysql:5.7
+        image: mysql:${MYSQL_VERSION}
         container_name: mysql
         command: --sql_mode="" --character-set-server=utf8 --collation-server=utf8_unicode_ci
         environment:
@@ -69,11 +69,10 @@ services:
             - ./docker/storages/mysql/db:/var/lib/mysql
         networks:
             app_net:
-               ipv4_address: 10.1.0.102 
-#- ./docker/storages/mysql/my.cnf:/etc/mysql/mysql.conf.d/my.cnf
+               ipv4_address: ${IPV4_MASK}.102 
         restart: always
     psql:
-        image: postgres:10.1
+        image: postgres:${POSTGRES_VERSION}
         container_name: psql
         restart: always
         environment:
@@ -84,9 +83,9 @@ services:
             - ./docker/storages/postgres/:/docker-entrypoint-initdb.d/
         networks:
             app_net:
-               ipv4_address: 10.1.0.103 
+               ipv4_address: ${IPV4_MASK}.103 
     cache:
-        image: redis:3-alpine
+        image: redis:${REDIS_VERSION}
         container_name: redis
         restart: always
         networks:
@@ -97,4 +96,4 @@ networks:
         ipam:
             driver: default
             config:
-                - subnet: 10.1.0.0/24
+                - subnet: ${IPV4_MASK}.0/24

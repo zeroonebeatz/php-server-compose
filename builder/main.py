@@ -11,6 +11,7 @@ available = (
     'mysql',
     'psql',
     'redis',
+    'gearman'
 )
 
 cli = BuilderCli(BuilderIO(Services(available)))

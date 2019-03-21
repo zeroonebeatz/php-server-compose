@@ -1,0 +1,13 @@
+container_name: gearman
+build:
+    args:
+        GID: ${PGID}
+        UID: ${PUID}
+    context: ./docker/dockerfiles/gearman/
+    dockerfile: gearman.docker
+restart: always
+tty: true
+networks:
+    app_net:
+        ipv4_address: ${IPV4_MASK}.106
+user: ${PUID}:${PGID}

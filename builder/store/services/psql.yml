@@ -1,5 +1,5 @@
-image: postgres:${POSTGRES_VERSION}
 container_name: psql
+image: postgres:${POSTGRES_VERSION}
 restart: always
 environment:
     - POSTGRES_DB=${DB_NAME}

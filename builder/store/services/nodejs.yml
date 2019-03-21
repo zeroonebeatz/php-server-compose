@@ -1,3 +1,4 @@
+container_name: nodejs
 build:
     context: ./docker/dockerfiles/js/
     dockerfile: nodejs.docker
@@ -7,7 +8,6 @@ build:
 volumes:
     - ./app:/var/www
 working_dir: /var/www
-container_name: nodejs
 tty: true
 networks:
     app_net:

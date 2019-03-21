@@ -1,5 +1,5 @@
-image: mysql:${MYSQL_VERSION}
 container_name: mysql
+image: mysql:${MYSQL_VERSION}
 command: --sql_mode="" --character-set-server=utf8 --collation-server=utf8_unicode_ci
 environment:
     MYSQL_DATABASE: ${DB_NAME}

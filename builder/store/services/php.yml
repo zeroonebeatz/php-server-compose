@@ -1,3 +1,4 @@
+container_name: php
 build:
     context: ./docker/dockerfiles/php/
     dockerfile: php.docker
@@ -15,7 +16,6 @@ volumes:
     - ~/.ssh:/home/$USER/.ssh
     - ./docker/dockerfiles/php/schedule_opts.sh:/usr/local/bin/schedule_opts.sh
     - ./docker/dockerfiles/php/schedule:/etc/init.d/schedule
-container_name: php
 environment:
     XDEBUG_CONFIG: 'idekey=docker'
 networks:

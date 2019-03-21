@@ -1,5 +1,3 @@
-#! /usr/bin/python3
-
 import sys
 from typing import List
 from src.storages.services import Services

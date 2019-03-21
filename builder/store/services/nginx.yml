@@ -2,8 +2,6 @@ container_name: nginx
 image: nginx:${NGINX_VERSION}
 ports:
     - "8080:80"
-links:
-    - php
 volumes:
     - ./app:/var/www
     - ./docker/nginx/conf.d:/etc/nginx/conf.d #TODO use sites-enabled

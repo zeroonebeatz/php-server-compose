@@ -18,7 +18,7 @@ class BuilderCli:
         self.io.read()
 
     def build(self):
-        print('Added: ' + ','.join(self.io.get_services()))
+        print('Added: ' + ','.join(self.io.services.get()))
         print('Building...')
-        BuilderFacade.make(self.io.get_services())
+        BuilderFacade.build(self.io.services)
         print('Done!')

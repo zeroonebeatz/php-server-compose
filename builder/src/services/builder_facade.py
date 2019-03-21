@@ -1,14 +1,15 @@
 from typing import List
 from src.services.builder import Builder
+from src.storages.services import Services
 
 
 class BuilderFacade:
     conf = 'builder/store/compose.yml'  # compose configuration
     confd = 'builder/store/services/'  # services config dir
     builder = None
-    services = []
+    services = None
 
-    def __init__(self, services: List, out: str):
+    def __init__(self, services: Services, out: str):
         self.services = services
         self.init_builder(out)
 
@@ -17,14 +18,24 @@ class BuilderFacade:
         self.builder = Builder(compose, self.confd, out)
 
     def push(self):
-        for service in self.services:
-            facade.builder.push(service)
+        for service in self.services.get():
+            self.builder.push(service, self.get_links(service))
+
+    def get_links(self, service: str):
+        links = None
+
+        if self.services.links.exists(service):
+            s = self.services.get()
+            sl = self.services.links.get(service)
+            links = [l for l in sl if l in s]
+
+        return links
 
     def make(self):
         self.builder.make()
 
     @staticmethod
-    def make(services: List, out: str = 'builder/tmp/docker-compose.yml'):
+    def build(services: Services, out: str = 'builder/tmp/docker-compose.yml'):
         facade = BuilderFacade(services, out)
         facade.push()
         facade.make()

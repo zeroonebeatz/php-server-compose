@@ -1,12 +1,15 @@
 from typing import Tuple
+from src.storages.links import Links
 
 
 class Services:
     available = None
+    links = None
     services = []
 
-    def __init__(self, available: Tuple):
+    def __init__(self, available: Tuple, links: Links):
         self.available = available
+        self.links = links
 
     def add(self, service: str):
         self.services.append(service)

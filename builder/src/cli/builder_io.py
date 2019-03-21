@@ -46,6 +46,3 @@ class BuilderIO:
     def print_added(self):
         self.print_available()
         print('Added: ' + ','.join(self.services.get()) + '\n')
-
-    def get_services(self):
-        return self.services.get()

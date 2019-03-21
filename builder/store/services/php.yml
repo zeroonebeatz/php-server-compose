@@ -7,10 +7,6 @@ build:
         USERNAME: $USER
         UID: ${PUID}
         GID: ${PGID}
-links:
-    - mysql
-    - psql
-    - cache
 volumes:
     - ./app:/var/www
     - ~/.ssh:/home/$USER/.ssh

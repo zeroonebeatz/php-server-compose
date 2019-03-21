@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 import io
 import yaml
 
@@ -13,11 +13,12 @@ class Builder:
         self.confd = confd
         self.out = out
 
-    def push(self, fname: str, service: str = None):
-        if service is None:
-            service = fname
+    def push(self, service: str, links: List):
+        conf = Builder.read_yaml(self.confd + service + '.yml')
 
-        conf = Builder.read_yaml(self.confd + fname + '.yml')
+        if links:
+            conf['links'] = links
+
         self.conf['services'][service] = conf
 
     def write_yaml(self):

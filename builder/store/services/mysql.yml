@@ -1,0 +1,14 @@
+image: mysql:${MYSQL_VERSION}
+container_name: mysql
+command: --sql_mode="" --character-set-server=utf8 --collation-server=utf8_unicode_ci
+environment:
+    MYSQL_DATABASE: ${DB_NAME}
+    MYSQL_ROOT_USER: ${DB_USER}
+    MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+volumes:
+    - ./docker/storages/mysql/init:/docker-entrypoint-initdb.d
+    - ./docker/storages/mysql/db:/var/lib/mysql
+networks:
+    app_net:
+       ipv4_address: ${IPV4_MASK}.102 
+restart: always

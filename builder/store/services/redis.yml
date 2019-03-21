@@ -1,0 +1,5 @@
+image: ${REDIS_VERSION}
+container_name: redis
+restart: always
+networks:
+    - app_net

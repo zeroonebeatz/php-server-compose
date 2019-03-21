@@ -1,0 +1,12 @@
+image: postgres:${POSTGRES_VERSION}
+container_name: psql
+restart: always
+environment:
+    - POSTGRES_DB=${DB_NAME}
+    - POSTGRES_USER=${DB_USER}
+    - POSTGRES_PASSWORD=${DB_PASSWORD}
+volumes:
+    - ./docker/storages/postgres/:/docker-entrypoint-initdb.d/
+networks:
+    app_net:
+       ipv4_address: ${IPV4_MASK}.103 

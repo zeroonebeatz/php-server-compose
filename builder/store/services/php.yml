@@ -1,0 +1,25 @@
+build:
+    context: ./docker/dockerfiles/php/
+    dockerfile: php.docker
+    args: 
+        PHP_VERSION: ${PHP_VERSION}
+        USERNAME: $USER
+        UID: ${PUID}
+        GID: ${PGID}
+links:
+    - mysql
+    - psql
+    - cache
+volumes:
+    - ./app:/var/www
+    - ~/.ssh:/home/$USER/.ssh
+    - ./docker/dockerfiles/php/schedule_opts.sh:/usr/local/bin/schedule_opts.sh
+    - ./docker/dockerfiles/php/schedule:/etc/init.d/schedule
+container_name: php
+environment:
+    XDEBUG_CONFIG: 'idekey=docker'
+networks:
+    app_net:
+        ipv4_address: ${IPV4_MASK}.101 
+user: ${PUID}:${PGID}
+restart: always

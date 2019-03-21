@@ -1,0 +1,17 @@
+image: elasticsearch:${ELASTIC_VERSION}
+container_name: elasticsearch
+environment:
+    - cluster.name=docker-cluster
+    - bootstrap.memory_lock=true
+    - "ES_JAVA_OPTS=-Xms750m -Xmx750m"
+volumes:
+    - ./docker/elasticsearch:/usr/share/elasticsearch/data
+ports:
+    - 9200:9200
+ulimits:
+    memlock:
+        soft: -1
+        hard: -1
+networks:
+    app_net:
+       ipv4_address: ${IPV4_MASK}.105 

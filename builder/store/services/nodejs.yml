@@ -1,0 +1,15 @@
+build:
+    context: ./docker/dockerfiles/js/
+    dockerfile: nodejs.docker
+    args: 
+        UID: ${PUID}
+        GID: ${PGID}
+volumes:
+    - ./app:/var/www
+working_dir: /var/www
+container_name: nodejs
+tty: true
+networks:
+    app_net:
+       ipv4_address: ${IPV4_MASK}.104 
+user: ${PUID}:${PGID}

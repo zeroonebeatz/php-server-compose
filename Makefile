@@ -1,7 +1,5 @@
 all: up schedule
 
-search: up-search schedule 
-
 up: 
 	PUID=$$(id -u) PGID=$$(id -g) docker-compose up --build -d 
 
@@ -9,14 +7,6 @@ down:
 	docker-compose down
 
 restart: down up
-
-up-search: 
-	PUID=$$(id -u) PGID=$$(id -g) docker-compose -f docker-compose.yml -f docker-compose.search.yml up --build -d 
-
-down-search: 
-	docker-compose -f docker-compose.yml -f docker-compose.search.yml down
-
-restart-search: down-search up-search
 
 schedule: 
 	docker exec php service schedule start

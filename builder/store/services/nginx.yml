@@ -1,0 +1,13 @@
+image: nginx:${NGINX_VERSION}
+ports:
+    - "8080:80"
+links:
+    - php
+volumes:
+    - ./app:/var/www
+    - ./docker/nginx/conf.d:/etc/nginx/conf.d #TODO use sites-enabled
+container_name: nginx
+networks:
+    app_net:
+       ipv4_address: ${IPV4_MASK}.100 
+restart: always

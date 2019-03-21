@@ -17,7 +17,7 @@ class BuilderFacade:
         self.builder = Builder(compose, self.confd, out)
 
     @staticmethod
-    def make(services: List, out: str = 'builder/tmp/test.yml'):
+    def make(services: List, out: str = 'builder/tmp/docker-compose.yml'):
         facade = BuilderFacade(services, out)
 
         for service in services:

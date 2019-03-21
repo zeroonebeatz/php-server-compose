@@ -1,12 +1,16 @@
-FROM php:7.1.17-fpm
+ARG VERSION=7.1.17-fpm
 
-#on kernel >= 4.19 needed command
-# echo N | sudo tee /sys/module/overlay/parameters/metacopy
+# ARGs reset after FROM
+FROM php:${VERSION} 
 
 ARG UID
 ARG GID 
 ARG USERNAME=app
-ARG XDEBUG_CONF_PATH=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+ARG PHP_CONF_DIR=/usr/local/etc/php/conf.d
+ARG XDEBUG_CONF_FILE=docker-php-ext-xdebug.ini
+
+# on kernel >= 4.19 may need run command
+# echo N | sudo tee /sys/module/overlay/parameters/metacopy
 
 RUN apt-get update && apt-get install -y \
     apt-utils \
@@ -49,20 +53,21 @@ RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 
 # Xdebug - install and configure 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    && echo "xdebug.remote_enable=1" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_autostart=1" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_default=1" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_handler=dbgp" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_port=9000" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.idekey=docker" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.remote_connect_back=1" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.profiler_enable=1" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.profiler_output_dir=/var/www/xdebug" >> ${XDEBUG_CONF_PATH} \
-    && echo "xdebug.profiler_enable_trigger=1" >> ${XDEBUG_CONF_PATH}
+RUN pecl install xdebug 
+RUN docker-php-ext-enable xdebug 
+RUN echo "xdebug.remote_enable=1" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \ 
+    && echo "xdebug.remote_autostart=1" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \ 
+    && echo "xdebug.remote_default=1" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \
+    && echo "xdebug.remote_handler=dbgp" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \
+    && echo "xdebug.remote_port=9000" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \
+    && echo "xdebug.idekey=docker" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \
+    && echo "xdebug.remote_connect_back=1" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \
+    && echo "xdebug.profiler_enable=1" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \
+    && echo "xdebug.profiler_output_dir=/var/www/xdebug" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE} \
+    && echo "xdebug.profiler_enable_trigger=1" >> ${PHP_CONF_DIR}/${XDEBUG_CONF_FILE}
 
-#    && echo "xdebug.remote_break_on_open=1" >> ${XDEBUG_CONF_PATH}
+# PHP - configure
+COPY ./php.ini "$PHP_INI_DIR/php.ini"
 
 # Postgre PDO - install 
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
@@ -70,12 +75,9 @@ RUN docker-php-ext-install -j$(nproc) pgsql pdo_pgsql
 
 # GD - install
 RUN docker-php-ext-configure gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ 
+    --with-freetype-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/ 
 RUN docker-php-ext-install -j$(nproc) gd 
-
-# PHP - configure
-COPY ./php.ini "$PHP_INI_DIR/php.ini"
 
 # User - configure
 RUN echo "${USERNAME}:x:${GID}:" >> /etc/group

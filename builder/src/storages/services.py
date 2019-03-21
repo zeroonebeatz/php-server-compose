@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 class Services:
     services = []
-    availble = (
+    available = (
         'nginx',
         'php',
         'nodejs',
@@ -11,8 +11,8 @@ class Services:
         'redis',
     )
 
-    def __init__(self, availble: Tuple):
-        self.availble = availble
+    def __init__(self, available: Tuple):
+        self.available = available
 
     def add(self, service: str):
         self.services.append(service)
@@ -21,7 +21,7 @@ class Services:
         return self.services
 
     def is_valid(self, line: str):
-        if line not in self.availble:
+        if line not in self.available:
             return False
 
         if line in self.services:

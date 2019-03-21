@@ -1,15 +1,9 @@
-from typing import List, Tuple
+from typing import Tuple
+
 
 class Services:
+    available = None
     services = []
-    available = (
-        'nginx',
-        'php',
-        'nodejs',
-        'mysql',
-        'psql',
-        'redis',
-    )
 
     def __init__(self, available: Tuple):
         self.available = available

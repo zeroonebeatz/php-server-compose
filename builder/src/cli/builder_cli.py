@@ -3,7 +3,7 @@
 import sys
 from typing import List
 from src.services.builder_facade import BuilderFacade
-from src.services.builder_io import BuilderIO
+from src.cli.builder_io import BuilderIO
 
 
 class BuilderCli:

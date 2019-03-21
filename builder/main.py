@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 
-from src.services.builder_cli import BuilderCli
-from src.services.builder_io import BuilderIO
+from src.cli.builder_cli import BuilderCli
+from src.cli.builder_io import BuilderIO
 from src.storages.services import Services
 
 availble = (

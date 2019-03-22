@@ -3,6 +3,8 @@
 
 **app/**- projects parent dir
 
+**builder/** - docker-compose builder dir
+
 **docker/** - services config dir
 
 ## PHP
@@ -39,23 +41,24 @@ or create sysctl config file /etc/sysctl.d/50-virtual.conf with parameters:
 
     vm.max_map_count=262144
 
+# Configuration
+
+## Build
+Run command 
+
+    $ cd builder/ && make
+
+and chose needed containers
+
 # Usage
 
 ## Run
 
     $ make
 
-with ElasticSearch
-
-    $ make search
-
 ## Down
 
     $ make down
-
-with ElasticSearch
-
-    $ make down-search
 
 ## Connect to containers
     
@@ -70,6 +73,8 @@ Containers:
 - psql
 - redis
 - elasticsearch
+- memcached
+- gearman
 
 ## TODO
 

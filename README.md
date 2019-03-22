@@ -7,6 +7,44 @@
 
 **docker/** - services config dir
 
+# Configuration
+
+## Requirement
+
+- python3
+
+## Build
+Run command 
+
+    $ cd builder/ && make
+
+and chose needed containers
+
+# Usage
+
+## Run
+
+    $ make
+
+## Down
+
+    $ make down
+
+## Connect to containers
+    
+    $ make CONTAINER_NAME
+
+Containers:
+
+- php
+- nodejs
+- mysql
+- psql
+- redis
+- elasticsearch
+- memcached
+- gearman
+
 ## PHP
 
 In docker/dockerfiles/php directory
@@ -40,45 +78,6 @@ For Linux set (lost after reboot):
 or create sysctl config file /etc/sysctl.d/50-virtual.conf with parameters:
 
     vm.max_map_count=262144
-
-# Configuration
-
-## Requirement
-
-- python3
-
-## Build
-Run command 
-
-    $ cd builder/ && make
-
-and chose needed containers
-
-# Usage
-
-## Run
-
-    $ make
-
-## Down
-
-    $ make down
-
-## Connect to containers
-    
-    $ make CONTAINER_NAME
-
-
-Containers:
-
-- php
-- nodejs
-- mysql
-- psql
-- redis
-- elasticsearch
-- memcached
-- gearman
 
 ## TODO
 

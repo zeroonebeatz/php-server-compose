@@ -43,6 +43,10 @@ or create sysctl config file /etc/sysctl.d/50-virtual.conf with parameters:
 
 # Configuration
 
+## Requirement
+
+- python3
+
 ## Build
 Run command 
 

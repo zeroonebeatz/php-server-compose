@@ -31,6 +31,12 @@ psql:
 redis:
 	docker exec -it redis /bin/sh
 
+memcached:
+	docker exec -it redis bash
+
+gearman:
+	docker exec -it gearman bash
+
 test:
 	@echo $$(id -u); \
 	echo $$(id -g);

@@ -1,4 +1,5 @@
 *.swp
 *.swo
+/docker-compose.yml
 ctags
 __pycache__

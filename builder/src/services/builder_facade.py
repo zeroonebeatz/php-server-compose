@@ -4,8 +4,8 @@ from src.storages.services import Services
 
 
 class BuilderFacade:
-    conf = 'builder/store/compose.yml'  # compose configuration
-    confd = 'builder/store/services/'  # services config dir
+    conf = 'store/compose.yml'  # compose configuration
+    confd = 'store/services/'  # services config dir
     builder = None
     services = None
 
@@ -35,7 +35,7 @@ class BuilderFacade:
         self.builder.make()
 
     @staticmethod
-    def build(services: Services, out: str = 'builder/tmp/docker-compose.yml'):
+    def build(services: Services, out: str = 'tmp/docker-compose.yml'):
         facade = BuilderFacade(services, out)
         facade.push()
         facade.make()

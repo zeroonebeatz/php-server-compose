@@ -4,6 +4,7 @@ build:
     dockerfile: php.docker
     args: 
         PHP_VERSION: ${PHP_VERSION}
+        GEARMAN_VERSION: ${GEARMAN_VERSION}
         USERNAME: $USER
         UID: ${PUID}
         GID: ${PGID}

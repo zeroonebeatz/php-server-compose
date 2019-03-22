@@ -8,6 +8,7 @@ ARG GID
 ARG USERNAME=app
 ARG PHP_CONF_DIR=/usr/local/etc/php/conf.d
 ARG XDEBUG_CONF_FILE=docker-php-ext-xdebug.ini
+ARG GEARMAN_VERSION=2.0.5
 
 # on kernel >= 4.19 may need run command
 # echo N | sudo tee /sys/module/overlay/parameters/metacopy
@@ -31,6 +32,7 @@ RUN apt-get update && apt-get install -y \
     libtidy-dev \
     libz-dev \
     libmemcached-dev \
+    libgearman-dev \
     g++
 
 RUN docker-php-ext-install -j$(nproc) \
@@ -57,6 +59,21 @@ RUN docker-php-ext-install intl
 # Memcached - install and enable
 RUN pecl install memcached
 RUN docker-php-ext-enable memcached 
+
+# Gearman install and configure
+RUN set -xe \
+    ; apt-get -y install libgearman-dev \
+    ; TMPDIR=$(mktemp -d) \
+    ; cd $TMPDIR \
+    ; curl -L https://github.com/wcgallego/pecl-gearman/archive/gearman-${GEARMAN_VERSION}.tar.gz \
+    | tar xzv --strip 1 \
+    ; phpize \
+    ; ./configure \
+    ; make -j$(nproc) \
+    ; make install \
+    ; cd - \
+    ; rm -r $TMPDIR \
+    ; docker-php-ext-enable gearman
 
 # Xdebug - install and configure 
 RUN pecl install xdebug 

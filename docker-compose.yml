@@ -23,6 +23,7 @@ services:
                 UID: ${PUID}
                 GID: ${PGID}
                 USERNAME: $USER
+                GEARMAN_VERSION: ${GEARMAN_VERSION}
         links:
             - mysql
             - psql

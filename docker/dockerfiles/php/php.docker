@@ -29,6 +29,8 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libicu-dev \
     libtidy-dev \
+    libz-dev \
+    libmemcached-dev \
     g++
 
 RUN docker-php-ext-install -j$(nproc) \
@@ -51,6 +53,10 @@ RUN docker-php-ext-install -j$(nproc) \
 # Intl - install
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
+
+# Memcached - install and enable
+RUN pecl install memcached
+RUN docker-php-ext-enable memcached 
 
 # Xdebug - install and configure 
 RUN pecl install xdebug 

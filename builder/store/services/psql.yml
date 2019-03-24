@@ -6,7 +6,7 @@ environment:
     - POSTGRES_USER=${DB_USER}
     - POSTGRES_PASSWORD=${DB_PASSWORD}
 volumes:
-    - ./docker/storages/postgres/:/docker-entrypoint-initdb.d/
+    - ./docker/storages/postgres/data:/var/lib/postgresql/data
 networks:
     app_net:
        ipv4_address: ${IPV4_MASK}.103 

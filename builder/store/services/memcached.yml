@@ -1,6 +1,5 @@
-memcached:
-    container_name: memcached
-    image: memcached:${MEMCACHED_VERSION}
-    restart: always
-    networks:
-        - app_net
+container_name: memcached
+image: memcached:${MEMCACHED_VERSION}
+restart: always
+networks:
+    - app_net
